@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ein: MyText
+  name: MyText
+  address: MyText
+  city: MyText
+  state: MyText
+  zip_code: MyText
+  filer: one
+  receiver: one
+
+two:
+  ein: MyText
+  name: MyText
+  address: MyText
+  city: MyText
+  state: MyText
+  zip_code: MyText
+  filer: two
+  receiver: two
