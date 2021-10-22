@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_20_012217) do
+ActiveRecord::Schema.define(version: 2021_10_22_231757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_10_20_012217) do
     t.text "city"
     t.text "state"
     t.text "zip_code"
-    t.bigint "award_id", null: false
+    t.bigint "award_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["award_id"], name: "index_filers_on_award_id"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 2021_10_20_012217) do
     t.text "city"
     t.text "state"
     t.text "zip_code"
-    t.bigint "award_id", null: false
+    t.bigint "award_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["award_id"], name: "index_receivers_on_award_id"
