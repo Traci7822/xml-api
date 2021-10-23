@@ -123,16 +123,17 @@ module Services
   end
 
   class XML_Award
-    def initialize(xml_data)
-      @xml_data = xml_data
+    def initialize(xml)
+      @xml = xml
+      @recipient_table = xml.name == "recipienttable"
     end
 
     def purpose
-      @xml_data.search('purposeofgrant').text
+      @recipient_table ? @xml.search('purposeofgrant').text : @xml.search('grantorcontributionpurposetxt').text
     end
   
     def cash_amount
-      @xml_data.search('amountofcashgrant').text
+      @recipient_table ? @xml.search('amountofcashgrant').text : @xml.search('amt').text
     end
   end
 end
