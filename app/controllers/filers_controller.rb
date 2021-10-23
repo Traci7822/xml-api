@@ -1,10 +1,13 @@
 class FilersController < ApplicationController
   def index
-    @filers = Filer.all
-    if @filers.count == 0
+    if filers.empty?
       redirect_to '/'
     else
-      json_response(@filers)
+      json_response(filers)
     end
+  end
+
+  def filers
+    Filer.all
   end
 end

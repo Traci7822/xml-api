@@ -33,10 +33,8 @@ ActiveRecord::Schema.define(version: 2021_10_22_231757) do
     t.text "city"
     t.text "state"
     t.text "zip_code"
-    t.bigint "award_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["award_id"], name: "index_filers_on_award_id"
   end
 
   create_table "receivers", force: :cascade do |t|
@@ -46,14 +44,10 @@ ActiveRecord::Schema.define(version: 2021_10_22_231757) do
     t.text "city"
     t.text "state"
     t.text "zip_code"
-    t.bigint "award_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["award_id"], name: "index_receivers_on_award_id"
   end
 
   add_foreign_key "awards", "filers"
   add_foreign_key "awards", "receivers"
-  add_foreign_key "filers", "awards"
-  add_foreign_key "receivers", "awards"
 end

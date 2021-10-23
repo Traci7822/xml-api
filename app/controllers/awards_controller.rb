@@ -1,6 +1,13 @@
 class AwardsController < ApplicationController  
   def index
-    @awards = Award.all
-    json_response(@awards)
+    if awards.empty?
+      redirect_to '/'
+    else
+      json_response(awards)
+    end
+    end
+
+  def awards
+    Award.all
   end
 end

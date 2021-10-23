@@ -1,6 +1,10 @@
 class ReceiversController < ApplicationController
   def index
-    json_response(receivers)
+    if receivers.empty?
+      redirect_to '/'
+    else
+      json_response(receivers)
+    end
   end
 
   def receivers
