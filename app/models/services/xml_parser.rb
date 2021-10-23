@@ -48,40 +48,36 @@ module Services
 
   class XML_Filer
     def initialize(xml)
-      @filer = xml.search('filer')
+      @recipient_table = xml.name == "recipienttable"
+      @xml = xml.search('filer')
     end
 
     def ein
-      @filer.search('ein').text
+      @xml.search('ein').text
     end
   
     def us_address
-      @filer.search('usaddress')
+      @xml.search('usaddress')
     end
 
     def address
-      xml_address = us_address.search('addressline1').text
-      xml_address.present? ? xml_address : us_address.search('addressline1txt').text
+      @recipient_table ? us_address.search('addressline1').text : us_address.search('addressline1txt').text
     end
   
     def city
-      xml_city = us_address.search('city').text
-      xml_city.present? ? xml_city : us_address.search('citynm').text
+      @recipient_table ? us_address.search('city').text : us_address.search('citynm').text
     end
   
     def state
-      xml_state = us_address.search('state').text
-      xml_state.present? ? xml_state : us_address.search('stateabbreviationcd').text
+      @recipient_table ? us_address.search('state').text : us_address.search('stateabbreviationcd').text
     end
   
     def zip_code
-      xml_zip = us_address.search('zipcode').text
-      xml_zip.present? ? xml_zip : us_address.search('zipcd').text
+      @recipient_table ? us_address.search('zipcode').text : us_address.search('zipcd').text
     end
   
     def name
-      xml_name = @filer.search('name').text
-      text = xml_name.present? ? xml_name : @filer.search('businessname').text
+      text = @recipient_table ? @xml.search('name').text : @xml.search('businessname').text
       text.strip
     end
   end
