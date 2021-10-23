@@ -15,15 +15,15 @@ module Services
     end
 
     def create_filer
-      @filer = Filer.create(ein: xml_filer.ein, name: xml_filer.name, address: xml_filer.address, city: xml_filer.city, state: xml_filer.state, zip_code: xml_filer.zip_code)
+      @filer = Filer.find_or_create_by(ein: xml_filer.ein, name: xml_filer.name, address: xml_filer.address, city: xml_filer.city, state: xml_filer.state, zip_code: xml_filer.zip_code)
     end
 
     def create_receivers
       receivers.each do |receiver_data|
         receiver = XML_Receiver.new(receiver_data)
         xml_award = XML_Award.new(receiver_data)
-        receiver = Receiver.create(ein: receiver.ein, name: receiver.name, address: receiver.address, city: receiver.city, state: receiver.state, zip_code: receiver.zip_code)
-        receiver.awards.create(filer: @filer, purpose: xml_award.purpose, cash_amount: xml_award.cash_amount)
+        receiver = Receiver.find_or_create_by(ein: receiver.ein, name: receiver.name, address: receiver.address, city: receiver.city, state: receiver.state, zip_code: receiver.zip_code)
+        receiver.awards.find_or_create_by(filer: @filer, purpose: xml_award.purpose, cash_amount: xml_award.cash_amount)
       end
     end
   end
@@ -60,19 +60,19 @@ module Services
 
   class XML_Receiver
     def initialize(xml)
-      @receiver = xml.search('returndata').search('recipienttable')
+      @xml = xml
     end
 
     def ein
-      @receiver.search('einofrecipient').text
+      @xml.search('einofrecipient').text
     end
   
     def name
-      @receiver.search('recipientnamebusiness').search('businessnameline1').text
+      @xml.search('recipientnamebusiness').search('businessnameline1').text
     end
   
     def address_us
-      @address_us ||= @receiver.search('addressus')
+      @address_us ||= @xml.search('addressus')
     end
   
     def address
