@@ -9,7 +9,8 @@ class ReceiversController < ApplicationController
 
   def receivers
     if params['state']
-      Receiver.where(state: params['state'].upcase)
+      state_receivers = Receiver.where(state: params['state'].upcase)
+      state_receivers.empty? ? {error: "No receivers found"} : state_receivers
     else
       Receiver.all
     end
