@@ -23,6 +23,6 @@
 
 ## Notes
 - Given more time to work on this project, I would do the following:
-  - Write specs
+  - Write tests
   - Refactor the XML_Parser to use inherited classes to reduce redundancy and increase efficiency
   - Improve upon routing and redirection handling
