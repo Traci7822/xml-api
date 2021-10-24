@@ -1,5 +1,8 @@
 # README
 
+## Rails
+- Built as a Rails API app 
+
 ## Ruby
 - v 2.7.1
 
