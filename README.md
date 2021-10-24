@@ -15,6 +15,9 @@
 ## About
 - This API app contains an XML_Parser service that parses IRS 990 public grant data to store Filer, Award, and Receiver attributes for said grants.
 
+## Setup
+- Prepare database with `rake db:migrate`
+
 ## Run locally
 - `rails s`
 

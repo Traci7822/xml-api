@@ -12,7 +12,6 @@ class ReceiversController < ApplicationController
   def receivers
     if params['state']
       state_receivers = Receiver.where(state: params['state'].upcase)
-      #TODO json_resp here?
       state_receivers.empty? ? {error: "No receivers found"} : state_receivers
     else
       Receiver.all
