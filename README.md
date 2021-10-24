@@ -1,12 +1,12 @@
 # README
 
-* Ruby
+## Ruby
 - v 2.7.1
 
-* Database
+## Database
 - Postgres v 14.0
 
-* Dependencies
+## Dependencies
 - Nokogiri v 1.12.5
 
 ## About
