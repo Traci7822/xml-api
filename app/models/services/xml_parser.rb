@@ -57,23 +57,23 @@ module Services
     end
 
     def address
-      us_address.children.select { |node| node.name.include? 'addressline' }.first.text
+      us_address.children.detect { |node| node.name.include? 'addressline' }.text
     end
   
     def city
-      us_address.children.select { |node| node.name.include? 'city' }.first.text
+      us_address.children.detect { |node| node.name.include? 'city' }.text
     end
   
     def state
-      us_address.children.select { |node| node.name.include? 'state' }.first.text
+      us_address.children.detect { |node| node.name.include? 'state' }.text
     end
   
     def zip_code
-      us_address.children.select { |node| node.name.include? 'zip' }.first.text
+      us_address.children.detect { |node| node.name.include? 'zip' }.text
     end
   
     def name
-      @xml.children.select { |node| node.name.include? 'name' }.first.text.strip
+      @xml.children.detect { |node| node.name.include? 'name' }.text.strip
     end
   end
 
@@ -87,27 +87,27 @@ module Services
     end
   
     def name
-      @xml.children.select { |node| node.name.include? 'name' }.first.text.strip
+      @xml.children.detect { |node| node.name.include? 'name' }.text.strip
     end
   
     def us_address
-      @xml.children.select { |node| node.name.include? 'address' }.first
+      @xml.children.detect { |node| node.name.include? 'address' }
     end
   
     def address
-      us_address.children.select { |node| node.name.include? 'addressline1' }.first.text
+      us_address.children.detect { |node| node.name.include? 'addressline1' }.text
     end
   
     def city
-      us_address.children.select { |node| node.name.include? 'city' }.first.text
+      us_address.children.detect { |node| node.name.include? 'city' }.text
     end
   
     def state
-      us_address.children.select { |node| node.name.include? 'state' }.first.text
+      us_address.children.detect { |node| node.name.include? 'state' }.text
     end
   
     def zip_code
-      us_address.children.select { |node| node.name.include? 'zip' }.first.text
+      us_address.children.detect { |node| node.name.include? 'zip' }.text
     end
   end
 
@@ -117,11 +117,11 @@ module Services
     end
 
     def purpose
-      @xml.children.select { |node| node.name.include? 'purpose' }.first.text
+      @xml.children.detect { |node| node.name.include? 'purpose' }.text
     end
   
     def cash_amount
-      @xml.children.select { |node| (node.name.include?('amt') || node.name.include?('amount')) }.first.text
+      @xml.children.detect { |node| (node.name.include?('amt') || node.name.include?('amount')) }.text
     end
   end
 end
