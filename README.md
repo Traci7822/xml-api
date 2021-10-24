@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby
+- v 2.7.1
 
-Things you may want to cover:
+* Database
+- Postgres v 14.0
 
-* Ruby version
+* Dependencies
+- Nokogiri v 1.12.5
 
-* System dependencies
+## About
+- This repository contains an XML_Parser service that parses IRS 990 public grant data to store Filer, Award, and Receiver attributes for said grants.
 
-* Configuration
+## Run locally
+- `Rails s`
 
-* Database creation
+## Endpoints
+- `/filers` returns serialized filers with associated awards
+- `/awards` returns serialized awards
+- `/receivers` returns serialized receivers of awards
+- `/receivers?state={state_code}` (ex: `/receivers?state=co`) returns serialized receivers for the queried state parameter
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Notes
+- Given more time to work on this project, I would do the following:
+  - Write specs
+  - Refactor the XML_Parser to use inherited classes to reduce redundancy and increase efficiency
+  - Improve upon routing and redirection handling
