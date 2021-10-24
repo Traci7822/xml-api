@@ -3,29 +3,25 @@ module Services
     def initialize(xml)
       @xml = xml
       create_filer
-      create_receivers_and_awards
+      create_awards_and_receivers
     end
 
     def xml_filer
       @xml_filer ||= XML_Filer.new(@xml)
     end
 
-    def receivers
-      if @xml.search('recipienttable').present?
-        @receivers = @xml.search('recipienttable')
-      else
-        @receivers = @xml.search('grantorcontributionpdduryrgrp')
-      end
+    def awards
+      @awards ||= @xml.search('return').search('returndata').search('irs990schedulei').search('recipienttable')
     end
 
     def create_filer
       @filer = Filer.find_or_create_by(ein: xml_filer.ein, name: xml_filer.name, address: xml_filer.address, city: xml_filer.city, state: xml_filer.state, zip_code: xml_filer.zip_code)
     end
 
-    def create_receivers_and_awards
-      receivers.each do |receiver_data|
-        create_receiver(receiver_data)
-        create_award(receiver_data)
+    def create_awards_and_receivers
+      awards.each do |award_data|
+        create_award(award_data)
+        create_receiver(award_data)
         associate_award
       end
     end
@@ -49,7 +45,7 @@ module Services
   class XML_Filer
     def initialize(xml)
       @recipient_table = xml.name == "recipienttable"
-      @xml = xml.search('filer')
+      @xml = xml.search('return').search('returnheader').search('filer')
     end
 
     def ein
@@ -61,31 +57,29 @@ module Services
     end
 
     def address
-      @recipient_table ? us_address.search('addressline1').text : us_address.search('addressline1txt').text
+      us_address.children.select { |node| node.name.include? 'addressline' }.first.text
     end
   
     def city
-      @recipient_table ? us_address.search('city').text : us_address.search('citynm').text
+      us_address.children.select { |node| node.name.include? 'city' }.first.text
     end
   
     def state
-      @recipient_table ? us_address.search('state').text : us_address.search('stateabbreviationcd').text
+      us_address.children.select { |node| node.name.include? 'state' }.first.text
     end
   
     def zip_code
-      @recipient_table ? us_address.search('zipcode').text : us_address.search('zipcd').text
+      us_address.children.select { |node| node.name.include? 'zip' }.first.text
     end
   
     def name
-      text = @recipient_table ? @xml.search('name').text : @xml.search('businessname').text
-      text.strip
+      @xml.children.select { |node| node.name.include? 'name' }.first.text.strip
     end
   end
 
   class XML_Receiver
     def initialize(xml)
       @xml = xml
-      @recipient_table = xml.name == "recipienttable"
     end
 
     def ein
@@ -93,43 +87,41 @@ module Services
     end
   
     def name
-      xml_name = @recipient_table ? @xml.search('businessnameline1') : @xml.search('businessnameline1txt')
-      xml_name.text.strip
+      @xml.children.select { |node| node.name.include? 'name' }.first.text.strip
     end
   
-    def address_us
-      @address_us ||= @recipient_table ? @xml.search('addressus') : @xml.search('recipientusaddress')
+    def us_address
+      @xml.children.select { |node| node.name.include? 'address' }.first
     end
   
     def address
-      @recipient_table ? address_us.search('addressline1').text : address_us.search('addressline1txt').text
+      us_address.children.select { |node| node.name.include? 'addressline1' }.first.text
     end
   
     def city
-      @recipient_table ? address_us.search('city').text : address_us.search('citynm').text
+      us_address.children.select { |node| node.name.include? 'city' }.first.text
     end
   
     def state
-      @recipient_table ? address_us.search('state').text : address_us.search('stateabbreviationcd').text
+      us_address.children.select { |node| node.name.include? 'state' }.first.text
     end
   
     def zip_code
-      @recipient_table ? address_us.search('zipcode').text : address_us.search('zipcd').text
+      us_address.children.select { |node| node.name.include? 'zip' }.first.text
     end
   end
 
   class XML_Award
     def initialize(xml)
       @xml = xml
-      @recipient_table = xml.name == "recipienttable"
     end
 
     def purpose
-      @recipient_table ? @xml.search('purposeofgrant').text : @xml.search('grantorcontributionpurposetxt').text
+      @xml.children.select { |node| node.name.include? 'purpose' }.first.text
     end
   
     def cash_amount
-      @recipient_table ? @xml.search('amountofcashgrant').text : @xml.search('amt').text
+      @xml.children.select { |node| (node.name.include?('amt') || node.name.include?('amount')) }.first.text
     end
   end
 end
