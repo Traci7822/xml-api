@@ -5,7 +5,9 @@ class AwardsController < ApplicationController
     else
       json_response(awards)
     end
-    end
+  end
+
+  private
 
   def awards
     Award.all

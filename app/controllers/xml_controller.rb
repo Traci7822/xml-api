@@ -12,12 +12,14 @@ class XmlController < ApplicationController
     'http://s3.amazonaws.com/irs-form-990/201401839349300020_public.xml',
     'http://s3.amazonaws.com/irs-form-990/201522139349100402_public.xml',
     'http://s3.amazonaws.com/irs-form-990/201831359349101003_public.xml'
-  ]
+  ].freeze
 
   def index
     parse_files
     redirect_to filers_path
   end
+
+  private
 
   def parse_files
     FILES.each do |url|

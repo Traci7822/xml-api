@@ -7,6 +7,8 @@ class FilersController < ApplicationController
     end
   end
 
+  private
+
   def filers
     Filer.all
   end

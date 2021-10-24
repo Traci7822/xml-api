@@ -30,6 +30,6 @@
 ## Notes
 - Given more time to work on this project, I would do the following:
   - Write tests
-  - Refactor the XML_Parser to use inherited classes to reduce redundancy and increase efficiency
+  - Refactor the XmlParser to not have all classes in one file to reduce redundancy and increase efficiency
   - Improve upon routing and redirection handling
 - The `Grant Amount Key: CashGrantAmt` path did not work for all included XML files. I was able to use alternative keywords to find the relevant data for all files.

@@ -7,7 +7,7 @@ module Services
     end
 
     def xml_filer
-      @xml_filer ||= XML_Filer.new(@xml)
+      @xml_filer ||= XmlFiler.new(@xml)
     end
 
     def awards
@@ -15,7 +15,14 @@ module Services
     end
 
     def create_filer
-      @filer = Filer.find_or_create_by(ein: xml_filer.ein, name: xml_filer.name, address: xml_filer.address, city: xml_filer.city, state: xml_filer.state, zip_code: xml_filer.zip_code)
+      @filer = Filer.find_or_create_by(
+        ein: xml_filer.ein,
+        name: xml_filer.name,
+        address: xml_filer.address,
+        city: xml_filer.city,
+        state: xml_filer.state,
+        zip_code: xml_filer.zip_code
+      )
     end
 
     def create_awards_and_receivers
@@ -27,12 +34,19 @@ module Services
     end
 
     def create_receiver(xml_data)
-      xml_receiver = XML_Receiver.new(xml_data)
-      @receiver = Receiver.find_or_create_by(ein: xml_receiver.ein, name: xml_receiver.name, address: xml_receiver.address, city: xml_receiver.city, state: xml_receiver.state, zip_code: xml_receiver.zip_code)
+      xml_receiver = XmlReceiver.new(xml_data)
+      @receiver = Receiver.find_or_create_by(
+        ein: xml_receiver.ein,
+        name: xml_receiver.name,
+        address: xml_receiver.address,
+        city: xml_receiver.city,
+        state: xml_receiver.state,
+        zip_code: xml_receiver.zip_code
+      )
     end
 
     def create_award(xml_data)
-      xml_award = XML_Award.new(xml_data)
+      xml_award = XmlAward.new(xml_data)
       @award = Award.find_or_create_by(filer: @filer, purpose: xml_award.purpose, cash_amount: xml_award.cash_amount)
     end
 
@@ -42,9 +56,8 @@ module Services
     end
   end
 
-  class XML_Filer
+  class XmlFiler
     def initialize(xml)
-      @recipient_table = xml.name == "recipienttable"
       @xml = xml.search('return').search('returnheader').search('filer')
     end
 
@@ -77,7 +90,7 @@ module Services
     end
   end
 
-  class XML_Receiver
+  class XmlReceiver
     def initialize(xml)
       @xml = xml
     end
@@ -111,7 +124,7 @@ module Services
     end
   end
 
-  class XML_Award
+  class XmlAward
     def initialize(xml)
       @xml = xml
     end
