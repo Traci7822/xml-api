@@ -16,7 +16,10 @@
 - This API app contains an XML_Parser service that parses IRS 990 public grant data to store Filer, Award, and Receiver attributes for said grants.
 
 ## Run locally
-- `Rails s`
+- `rails s`
+
+## Heroku
+- This app is currently deployed to heroku at https://instrumentl-xml-api.herokuapp.com/
 
 ## Endpoints
 - `/filers` returns serialized filers with associated awards
