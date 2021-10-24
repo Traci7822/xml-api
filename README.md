@@ -13,7 +13,7 @@
 - Nokogiri v 1.12.5
 
 ## About
-- This repository contains an XML_Parser service that parses IRS 990 public grant data to store Filer, Award, and Receiver attributes for said grants.
+- This API app contains an XML_Parser service that parses IRS 990 public grant data to store Filer, Award, and Receiver attributes for said grants.
 
 ## Run locally
 - `Rails s`
