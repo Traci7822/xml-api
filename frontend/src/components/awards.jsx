@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Award from './award';
 
+
 const Awards = () => {
   const [awards, setAwards] = React.useState([]);
 
@@ -17,11 +18,23 @@ const Awards = () => {
 
   const renderAwards = () => {
     return (
-      <>
-        {awards.map((award) => (
-          <Award award={award} />
-         ))}
-      </>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Purpose</th>
+            <th>Cash Amount</th>
+            <th>Filer</th>
+            <th>Receivers</th>
+          </tr>
+        </thead>
+        <tbody>
+          {awards.map((award) => (
+            <Award award={award} />
+          ))}
+        </tbody>
+      </table>
+
     );
   }
 

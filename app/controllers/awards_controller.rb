@@ -18,6 +18,7 @@ class AwardsController < ApplicationController
   end
 
   def awards
-    Award.all.order('id ASC').includes(:filer)
+    @awards = Award.all.order('id ASC').includes(:filer)
+    @paginated_awards = @awards.paginate(:page => params[:page], :per_page => 30)
   end
 end

@@ -19,43 +19,30 @@ const Award = (props) => {
 
   const renderAward = () => {
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Purpose</th>
-            <th>Cash Amount</th>
-            <th>Filer</th>
-            <th>Receivers</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td key={award.id}>
-              {award.id}
-            </td>
-            <td key={award.purpose}>
-              {award.purpose}
-            </td>
-            <td key={award.cash_amount}>
-              {award.cash_amount}
-            </td>   
-            <td key={award.filer_id}>
-              <Link to={`/filers/${award.filer_id}`}>Filer</Link>
-            </td>
-            <td key={award.receiver_id}>
-              <Link to={`/receivers/${award.receiver_id}`}>Receiver</Link>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <>
+        <td key={award.id}>
+          {award.id}
+        </td>
+        <td key={award.purpose}>
+          {award.purpose}
+        </td>
+        <td key={award.cash_amount}>
+          {award.cash_amount}
+        </td>   
+        <td key={award.filer_id}>
+          <Link to={`/filers/${award.filer_id}`}>Filer</Link>
+        </td>
+        <td key={award.receiver_id}>
+          <Link to={`/receivers/${award.receiver_id}`}>Receiver</Link>
+        </td>
+      </>
     );
-  }
+}
 
   return (
-    <div className="Award">
+    <tr className="Award">
       {renderAward()}
-    </div>
+    </tr>
   );
 }
 
