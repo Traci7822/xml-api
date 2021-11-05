@@ -2,20 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
-const Filer = () => {
+const Filer = (props) => {
   const id = useParams()['id'];
   const [filer, setFiler] = React.useState({})
 
   React.useEffect(() => {
-    if (Object.keys(filer).length != 0) {
-      return
+    if (props?.filer) {
+      setFiler(props.filer);
+    } else if (Object.keys(filer).length == 0) {
+      fetch(`http://localhost:3001/filers/${id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setFiler(data);
+      })
+      .catch()
     }
-    fetch(`http://localhost:3001/filers/${id}`)
-    .then((response) => response.json())
-    .then((data) => {
-      setFiler(data);
-    })
-    // .catch()
   });
 
   const renderFiler = () => {
@@ -25,6 +26,7 @@ const Filer = () => {
           <th>EIN</th>
           <th>Name</th>
           <th>Address</th>
+          <th>Awards</th>
         </tr>
         <tr>
           <td key={filer.ein}>
@@ -34,7 +36,7 @@ const Filer = () => {
             {filer.name}
           </td>
           <td key={filer.address}>
-            <Link to={"/address/" + filer.id}>Address</Link>
+            <Link to={"/address/filers/" + filer.id}>Address</Link>
           </td>
           <td key={filer.id}>
             <Link to={"/awards/" + filer.id}>Awards</Link> 

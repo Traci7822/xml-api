@@ -5,13 +5,14 @@ import { useParams } from 'react-router-dom';
 
 const Address = () => {
   const id = useParams()['id'];
+  const userType = useParams()['user_type'];
   const [address, setAddress] = React.useState({})
 
   React.useEffect(() => {
     if (Object.keys(address).length != 0) {
       return
     }
-    fetch(`http://localhost:3001/filers/${id}`)
+    fetch(`http://localhost:3001/${userType}/${id}`)
     .then((response) => response.json())
     .then((data) => {
       setAddress({
@@ -21,7 +22,7 @@ const Address = () => {
         "zipCode": data.zip_code
       })
     })
-    // .catch()
+    .catch()
   });
   const renderAddress = () => {
     return (

@@ -1,42 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Award from './award';
 
-export default function Awards() {
+const Awards = () => {
   const [awards, setAwards] = React.useState([]);
 
   React.useEffect(() => {
+    if (awards?.length != 0) {
+      return
+    }
     fetch('http://localhost:3001/awards')
     .then((response) => response.json())
     .then((data) => setAwards(data))
-    // .catch()
+    .catch()
   });
 
   const renderAwards = () => {
     return (
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Purpose</th>
-          <th>Cash Amount</th>
-          <th>Filer</th>
-        </tr>
+      <>
         {awards.map((award) => (
-          <tr>
-            <td key={award.id}>
-              {award.id}
-            </td>
-            <td key={award.purpose}>
-              {award.purpose}
-            </td>
-            <td key={award.cash_amount}>
-              {award.cash_amount}
-            </td>   
-            <td key={award.filer_id}>
-              <Link to={`/filers/${award.filer_id}`}>Filer</Link>
-            </td>           
-          </tr>
-        ))}
-      </table>
+          <Award award={award} />
+         ))}
+      </>
     );
   }
 
@@ -46,3 +31,5 @@ export default function Awards() {
     </div>
   );
 }
+
+export default Awards;
