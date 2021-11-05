@@ -1,7 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import React from 'react';
 
 function Home() {
+  React.useEffect(() => {
+    fetch('http://localhost:3001/awards')
+    .then((response) => response.json())
+    .then((data) => console.log(data))
+    .catch()
+  });
+
   return (
     <div className="App">
       <header className="App-header">
