@@ -1,15 +1,15 @@
 class AwardsController < ApplicationController  
   def index
-    if awards.empty?
-      redirect_to '/'
-    else
-      json_response(awards)
-    end
+    # if awards.empty?
+      # redirect_to '/'
+    # else
+    json_response(awards)
+    # end
   end
 
   private
 
   def awards
-    Award.all.order('id ASC')
+    Award.all.order('id ASC').includes(:filer)
   end
 end

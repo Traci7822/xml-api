@@ -1,10 +1,13 @@
 import './App.css';
 import React from 'react';
-import Awards from './components/Awards'
+import { Link } from 'react-router-dom';
+
 
 function Home() {
   return (
-    <Awards />
+    <div>
+      <Link to="/awards">Awards</Link>
+    </div>
   );
 }
 

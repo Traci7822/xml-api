@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-function Awards() {
+export default function Awards() {
   const [awards, setAwards] = React.useState([]);
 
   React.useEffect(() => {
@@ -11,13 +12,13 @@ function Awards() {
   });
 
   const renderAwards = () => {
-    console.log(awards);
     return (
       <table>
         <tr>
           <th>ID</th>
           <th>Purpose</th>
           <th>Cash Amount</th>
+          <th>Filer</th>
         </tr>
         {awards.map((award) => (
           <tr>
@@ -29,6 +30,10 @@ function Awards() {
             </td>
             <td key={award.cash_amount}>
               {award.cash_amount}
+            </td>   
+            <td key={award.filer_id}>
+              <Link to={"/filer/" + award.filer_id}>Filer</Link>
+              {/* {award.filer_id} */}
             </td>           
           </tr>
         ))}
@@ -42,5 +47,3 @@ function Awards() {
     </div>
   );
 }
-
-export default Awards;
