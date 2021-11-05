@@ -32,8 +32,7 @@ export default function Awards() {
               {award.cash_amount}
             </td>   
             <td key={award.filer_id}>
-              <Link to={"/filer/" + award.filer_id}>Filer</Link>
-              {/* {award.filer_id} */}
+              <Link to={`/filers/${award.filer_id}`}>Filer</Link>
             </td>           
           </tr>
         ))}
