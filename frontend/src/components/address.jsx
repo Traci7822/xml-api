@@ -5,20 +5,28 @@ import { useParams } from 'react-router-dom';
 
 const Address = () => {
   const id = useParams()['id'];
-  const [address, setAddress] = React.useState('')
+  const [address, setAddress] = React.useState({})
 
   React.useEffect(() => {
-    fetch('http://localhost:3001/filers/id')
+    if (Object.keys(address).length != 0) {
+      return
+    }
+    fetch(`http://localhost:3001/filers/${id}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);  
+      setAddress({
+        "street": data.address,
+        "city": data.city,
+        "state": data.state,
+        "zipCode": data.zip_code
+      })
     })
     // .catch()
   });
   const renderAddress = () => {
     return (
       <div>
-        {id}
+        {JSON.stringify(address)}
       </div>
     )
   }
