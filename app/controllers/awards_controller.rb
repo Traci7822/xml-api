@@ -10,6 +10,6 @@ class AwardsController < ApplicationController
   private
 
   def awards
-    Award.all
+    Award.all.order('id ASC')
   end
 end
